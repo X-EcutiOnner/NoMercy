@@ -1,0 +1,98 @@
+#include "../../include/PCH.hpp"
+#include "../../include/WinAPIManager.hpp"
+
+namespace NoMercyCore
+{
+	void CWinAPIManager::BindAPIs_9()
+	{
+		g_winAPIs->NetUserGetInfo = decltype(g_winAPIs->NetUserGetInfo)(g_winAPIs->GetProcAddress(g_winModules->hNetapi32, xorstr_("NetUserGetInfo")));
+		g_winAPIs->GetMonitorInfoW = decltype(g_winAPIs->GetMonitorInfoW)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("GetMonitorInfoW")));
+		g_winAPIs->EnumDisplayDevicesW = decltype(g_winAPIs->EnumDisplayDevicesW)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("EnumDisplayDevicesW")));
+		g_winAPIs->GetDeviceCaps = decltype(g_winAPIs->GetDeviceCaps)(g_winAPIs->GetProcAddress(g_winModules->hGdi32, xorstr_("GetDeviceCaps")));
+		g_winAPIs->CallNtPowerInformation = decltype(g_winAPIs->CallNtPowerInformation)(g_winAPIs->GetProcAddress(g_winModules->hPowrProf, xorstr_("CallNtPowerInformation")));
+		g_winAPIs->GetProcessMemoryInfo = decltype(g_winAPIs->GetProcessMemoryInfo)(g_winAPIs->GetProcAddress(g_winModules->hPsapi, xorstr_("GetProcessMemoryInfo")));
+		g_winAPIs->GetPriorityClass = decltype(g_winAPIs->GetPriorityClass)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetPriorityClass")));
+		g_winAPIs->SysAllocString = decltype(g_winAPIs->SysAllocString)(g_winAPIs->GetProcAddress(g_winModules->hOleAut32, xorstr_("SysAllocString")));
+		g_winAPIs->SysFreeString = decltype(g_winAPIs->SysFreeString)(g_winAPIs->GetProcAddress(g_winModules->hOleAut32, xorstr_("SysFreeString")));
+		g_winAPIs->GetProductInfo = decltype(g_winAPIs->GetProductInfo)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetProductInfo")));
+		g_winAPIs->GetSystemDefaultUILanguage = decltype(g_winAPIs->GetSystemDefaultUILanguage)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetSystemDefaultUILanguage")));
+		g_winAPIs->GetUserDefaultUILanguage = decltype(g_winAPIs->GetUserDefaultUILanguage)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetUserDefaultUILanguage")));
+		g_winAPIs->GetSystemDefaultLCID = decltype(g_winAPIs->GetSystemDefaultLCID)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetSystemDefaultLCID")));
+		g_winAPIs->GetUserDefaultLCID = decltype(g_winAPIs->GetUserDefaultLCID)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetUserDefaultLCID")));
+		g_winAPIs->GetSystemDefaultLangID = decltype(g_winAPIs->GetSystemDefaultLangID)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetSystemDefaultLangID")));
+		g_winAPIs->GetUserDefaultLangID = decltype(g_winAPIs->GetUserDefaultLangID)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetUserDefaultLangID")));
+		g_winAPIs->GetOEMCP = decltype(g_winAPIs->GetOEMCP)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetOEMCP")));
+		g_winAPIs->getnameinfo = decltype(g_winAPIs->getnameinfo)(g_winAPIs->GetProcAddress(g_winModules->hWs2_32, xorstr_("getnameinfo")));
+		g_winAPIs->DnsFree = decltype(g_winAPIs->DnsFree)(g_winAPIs->GetProcAddress(g_winModules->hDnsapi, xorstr_("DnsFree")));
+		g_winAPIs->RegEnumKeyW = decltype(g_winAPIs->RegEnumKeyW)(g_winAPIs->GetProcAddress(g_winModules->hAdvapi32, xorstr_("RegEnumKeyW")));
+		g_winAPIs->GetEnvironmentStringsW = decltype(g_winAPIs->GetEnvironmentStringsW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetEnvironmentStringsW")));
+		g_winAPIs->FreeEnvironmentStringsW = decltype(g_winAPIs->FreeEnvironmentStringsW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("FreeEnvironmentStringsW")));
+		g_winAPIs->NetShareEnum = decltype(g_winAPIs->NetShareEnum)(g_winAPIs->GetProcAddress(g_winModules->hNetapi32, xorstr_("NetShareEnum")));
+		g_winAPIs->ShellExecuteExW = decltype(g_winAPIs->ShellExecuteExW)(g_winAPIs->GetProcAddress(g_winModules->hShell32, xorstr_("ShellExecuteExW")));
+		g_winAPIs->RtlInitUnicodeStringEx = decltype(g_winAPIs->RtlInitUnicodeStringEx)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("RtlInitUnicodeStringEx")));
+		g_winAPIs->NtOpenSection = decltype(g_winAPIs->NtOpenSection)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtOpenSection")));
+		g_winAPIs->GetRawInputData = decltype(g_winAPIs->GetRawInputData)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("GetRawInputData")));
+		g_winAPIs->GetRawInputDeviceInfoW = decltype(g_winAPIs->GetRawInputDeviceInfoW)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("GetRawInputDeviceInfoW")));
+		g_winAPIs->IsWindowUnicode = decltype(g_winAPIs->IsWindowUnicode)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("IsWindowUnicode")));
+		g_winAPIs->SetWindowLongW = decltype(g_winAPIs->SetWindowLongW)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("SetWindowLongW")));
+		g_winAPIs->RegisterRawInputDevices = decltype(g_winAPIs->RegisterRawInputDevices)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("RegisterRawInputDevices")));
+		g_winAPIs->RtlCompareMemory = decltype(g_winAPIs->RtlCompareMemory)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("RtlCompareMemory")));
+		g_winAPIs->LoadLibraryA = decltype(g_winAPIs->LoadLibraryA)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("LoadLibraryA")));
+		g_winAPIs->LoadLibraryW = decltype(g_winAPIs->LoadLibraryW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("LoadLibraryW")));
+		g_winAPIs->GetModuleHandleA = decltype(g_winAPIs->GetModuleHandleA)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetModuleHandleA")));
+		g_winAPIs->RtlDosApplyFileIsolationRedirection_Ustr = (WinAPI::TRtlDosApplyFileIsolationRedirection_Ustr)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("RtlDosApplyFileIsolationRedirection_Ustr")));
+		g_winAPIs->RtlFreeUnicodeString = decltype(g_winAPIs->RtlFreeUnicodeString)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("RtlFreeUnicodeString")));
+		g_winAPIs->NtOpenFile = decltype(g_winAPIs->NtOpenFile)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtOpenFile")));
+		g_winAPIs->NtQueryDirectoryFile = decltype(g_winAPIs->NtQueryDirectoryFile)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtQueryDirectoryFile")));
+		g_winAPIs->InternetGetLastResponseInfoW = decltype(g_winAPIs->InternetGetLastResponseInfoW)(g_winAPIs->GetProcAddress(g_winModules->hWininet, xorstr_("InternetGetLastResponseInfoW")));
+		g_winAPIs->ShowWindowAsync = decltype(g_winAPIs->ShowWindowAsync)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("ShowWindowAsync")));
+		g_winAPIs->EnumSystemFirmwareTables = decltype(g_winAPIs->EnumSystemFirmwareTables)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("EnumSystemFirmwareTables")));
+		g_winAPIs->NtOpenKey = decltype(g_winAPIs->NtOpenKey)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtOpenKey")));
+		g_winAPIs->NtEnumerateKey = decltype(g_winAPIs->NtEnumerateKey)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtEnumerateKey")));
+		g_winAPIs->GetKeyboardLayout = decltype(g_winAPIs->GetKeyboardLayout)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("GetKeyboardLayout")));
+		g_winAPIs->ImmGetDescriptionW = decltype(g_winAPIs->ImmGetDescriptionW)(g_winAPIs->GetProcAddress(g_winModules->hImm32, xorstr_("ImmGetDescriptionW")));
+		g_winAPIs->ImmIsIME = decltype(g_winAPIs->ImmIsIME)(g_winAPIs->GetProcAddress(g_winModules->hImm32, xorstr_("ImmIsIME")));
+		g_winAPIs->CreateFileMappingW = decltype(g_winAPIs->CreateFileMappingW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("CreateFileMappingW")));
+		g_winAPIs->WTSOpenServerW = decltype(g_winAPIs->WTSOpenServerW)(g_winAPIs->GetProcAddress(g_winModules->hWtsapi32, xorstr_("WTSOpenServerW")));
+		g_winAPIs->WTSCloseServer = decltype(g_winAPIs->WTSCloseServer)(g_winAPIs->GetProcAddress(g_winModules->hWtsapi32, xorstr_("WTSCloseServer")));
+		g_winAPIs->WTSEnumerateSessionsW = decltype(g_winAPIs->WTSEnumerateSessionsW)(g_winAPIs->GetProcAddress(g_winModules->hWtsapi32, xorstr_("WTSEnumerateSessionsW")));
+		g_winAPIs->WTSEnumerateProcessesW = decltype(g_winAPIs->WTSEnumerateProcessesW)(g_winAPIs->GetProcAddress(g_winModules->hWtsapi32, xorstr_("WTSEnumerateProcessesW")));
+		g_winAPIs->WTSQuerySessionInformationW = decltype(g_winAPIs->WTSQuerySessionInformationW)(g_winAPIs->GetProcAddress(g_winModules->hWtsapi32, xorstr_("WTSQuerySessionInformationW")));
+		g_winAPIs->WTSDisconnectSession = decltype(g_winAPIs->WTSDisconnectSession)(g_winAPIs->GetProcAddress(g_winModules->hWtsapi32, xorstr_("WTSDisconnectSession")));
+		g_winAPIs->WTSLogoffSession = decltype(g_winAPIs->WTSLogoffSession)(g_winAPIs->GetProcAddress(g_winModules->hWtsapi32, xorstr_("WTSLogoffSession")));
+		g_winAPIs->CryptFindOIDInfo = decltype(g_winAPIs->CryptFindOIDInfo)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CryptFindOIDInfo")));
+		g_winAPIs->CryptDecodeObject = decltype(g_winAPIs->CryptDecodeObject)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CryptDecodeObject")));
+		g_winAPIs->FileTimeToLocalFileTime = decltype(g_winAPIs->FileTimeToLocalFileTime)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("FileTimeToLocalFileTime")));
+		g_winAPIs->CryptCATAdminReleaseCatalogContext = decltype(g_winAPIs->CryptCATAdminReleaseCatalogContext)(g_winAPIs->GetProcAddress(g_winModules->hWintrust, xorstr_("CryptCATAdminReleaseCatalogContext")));
+		g_winAPIs->WTHelperGetProvCertFromChain = decltype(g_winAPIs->WTHelperGetProvCertFromChain)(g_winAPIs->GetProcAddress(g_winModules->hWintrust, xorstr_("WTHelperGetProvCertFromChain")));
+		g_winAPIs->WTHelperGetProvSignerFromChain = decltype(g_winAPIs->WTHelperGetProvSignerFromChain)(g_winAPIs->GetProcAddress(g_winModules->hWintrust, xorstr_("WTHelperGetProvSignerFromChain")));
+		g_winAPIs->WTHelperProvDataFromStateData = decltype(g_winAPIs->WTHelperProvDataFromStateData)(g_winAPIs->GetProcAddress(g_winModules->hWintrust, xorstr_("WTHelperProvDataFromStateData")));
+		g_winAPIs->CertOpenStore = decltype(g_winAPIs->CertOpenStore)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertOpenStore")));
+		g_winAPIs->CertVerifyTimeValidity = decltype(g_winAPIs->CertVerifyTimeValidity)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertVerifyTimeValidity")));
+		g_winAPIs->CertGetCertificateChain = decltype(g_winAPIs->CertGetCertificateChain)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertGetCertificateChain")));
+		g_winAPIs->CryptHashCertificate = decltype(g_winAPIs->CryptHashCertificate)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CryptHashCertificate")));
+		g_winAPIs->CertEnumSystemStore = decltype(g_winAPIs->CertEnumSystemStore)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertEnumSystemStore")));
+		g_winAPIs->CertEnumSystemStoreLocation = decltype(g_winAPIs->CertEnumSystemStoreLocation)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertEnumSystemStoreLocation")));
+		g_winAPIs->CertEnumCertificatesInStore = decltype(g_winAPIs->CertEnumCertificatesInStore)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertEnumCertificatesInStore")));
+		g_winAPIs->CertNameToStrW = decltype(g_winAPIs->CertNameToStrW)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertNameToStrW")));
+		g_winAPIs->CryptDecodeObjectEx = decltype(g_winAPIs->CryptDecodeObjectEx)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CryptDecodeObjectEx")));
+		g_winAPIs->CertVerifyCertificateChainPolicy = decltype(g_winAPIs->CertVerifyCertificateChainPolicy)(g_winAPIs->GetProcAddress(g_winModules->hCrypt32, xorstr_("CertVerifyCertificateChainPolicy")));
+		g_winAPIs->EnumDisplaySettingsW = decltype(g_winAPIs->EnumDisplaySettingsW)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("EnumDisplaySettingsW")));
+		g_winAPIs->SetupDiGetDeviceRegistryPropertyW = decltype(g_winAPIs->SetupDiGetDeviceRegistryPropertyW)(g_winAPIs->GetProcAddress(g_winModules->hSetupapi, xorstr_("SetupDiGetDeviceRegistryPropertyW")));
+		g_winAPIs->SetupDiGetDeviceInstanceIdW = decltype(g_winAPIs->SetupDiGetDeviceInstanceIdW)(g_winAPIs->GetProcAddress(g_winModules->hSetupapi, xorstr_("SetupDiGetDeviceInstanceIdW")));
+		g_winAPIs->GlobalGetAtomNameW = decltype(g_winAPIs->GlobalGetAtomNameW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GlobalGetAtomNameW")));
+		g_winAPIs->GetEnvironmentVariableW = decltype(g_winAPIs->GetEnvironmentVariableW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetEnvironmentVariableW")));
+		g_winAPIs->GetBinaryTypeW = decltype(g_winAPIs->GetBinaryTypeW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("GetBinaryTypeW")));
+		g_winAPIs->HeapQueryInformation = decltype(g_winAPIs->HeapQueryInformation)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("HeapQueryInformation")));
+		g_winAPIs->Module32FirstW = decltype(g_winAPIs->Module32FirstW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("Module32First")));
+		g_winAPIs->Module32NextW = decltype(g_winAPIs->Module32NextW)(g_winAPIs->GetProcAddress(g_winModules->hKernel32, xorstr_("Module32Next")));
+		g_winAPIs->ShutdownBlockReasonCreate = decltype(g_winAPIs->ShutdownBlockReasonCreate)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("ShutdownBlockReasonCreate")));
+		g_winAPIs->ShutdownBlockReasonDestroy = decltype(g_winAPIs->ShutdownBlockReasonDestroy)(g_winAPIs->GetProcAddress(g_winModules->hUser32, xorstr_("ShutdownBlockReasonDestroy")));
+		g_winAPIs->NtAlpcAcceptConnectPort = decltype(g_winAPIs->NtAlpcAcceptConnectPort)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtAlpcAcceptConnectPort")));
+		g_winAPIs->NtAlpcCreatePort = decltype(g_winAPIs->NtAlpcCreatePort)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtAlpcCreatePort")));
+		g_winAPIs->NtAlpcConnectPort = decltype(g_winAPIs->NtAlpcConnectPort)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtAlpcConnectPort")));
+		g_winAPIs->NtAlpcDisconnectPort = decltype(g_winAPIs->NtAlpcDisconnectPort)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtAlpcDisconnectPort")));
+		g_winAPIs->NtAlpcSendWaitReceivePort = decltype(g_winAPIs->NtAlpcSendWaitReceivePort)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtAlpcSendWaitReceivePort")));
+		g_winAPIs->NtAlpcQueryInformationMessage = decltype(g_winAPIs->NtAlpcQueryInformationMessage)(g_winAPIs->GetProcAddress(g_winModules->hNtdll, xorstr_("NtAlpcQueryInformationMessage")));
+	}
+};

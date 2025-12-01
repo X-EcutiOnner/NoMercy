@@ -1,0 +1,3 @@
+nomercy/.placeholder
+nomercy/data/.placeholder
+nomercy/i18n/.placeholder

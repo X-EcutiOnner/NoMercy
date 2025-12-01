@@ -1,0 +1,6 @@
+SDK
+NoMercy\data\game.dat changes
+NoMercy client files
+Setup
+WS server license
+game_list.json

@@ -1,0 +1,1 @@
+ <foreground_patch crcpatch_url="http://storage.nomercy.ac" crcversion="1.0.0.1337"/>

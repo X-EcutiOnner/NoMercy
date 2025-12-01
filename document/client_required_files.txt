@@ -1,0 +1,6 @@
+NoMercy_Module_x*.dll
+NoMercy/NoMercy.cdb
+NoMercy/NoMercy_Game.dat
+NoMercy/NoMercy_Game.fdb
+NoMercy/NoMercy_Game.key
+NoMercy/NoMercy_Crash_Handler_x*.exe

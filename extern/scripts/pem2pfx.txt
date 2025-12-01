@@ -1,0 +1,3 @@
+"C:/Program Files/Git/usr/bin/openssl.exe" pkcs12 -inkey NoMercy.key -in NoMercy.crt -export -out NoMercy.pfx
+
+1234

@@ -1,0 +1,53 @@
+{
+	"disabled": false, // disable NoMercy functionality
+	"use_crash_handler": true,
+	"compability_mode": false, // compability mode with other anti-cheats
+	"init_options": [
+//		"silent_mode",
+//		"disable_log_file_telemetry",
+//		"block_system_handle_access",
+		"hook_game_process_winapi_functions",
+		"hook_game_engine_functions",
+		"protect_graphic_engine_functions",
+//		"always_protect_game_screen",
+//		"block_switch_window",
+//		"disable_display_in_system_tray",
+		"allow_virtual_machine"
+//		"allow_mouse_macro",
+//		"allow_keyboard_macro",
+//		"allow_user_debugger",
+//		"allow_kernel_debugger",
+//		"allow_disabled_secure_boot",
+//		"allow_enabled_test_signature_mode",
+//		"allow_disabled_hvci",
+//		"allow_disabled_tpm",
+//		"disable_game_memory_anti_tamper",
+//		"disable_game_process_window_watchdog",
+//		"disable_game_process_win32_message_hook"
+	],
+	"game_code": 1,
+	"license_code": "sample_lic_code",
+	"executable_hash": "", // empty string > not checked
+	"game_version": 1337,
+	"client_limit": 0, // 0 > unlimited
+	"ip_addresses": [ // > limit: 4
+		"127.0.0.1",
+		"192.168.2.1"
+	],
+	"net_guard": {
+		"enabled": false,
+		"version": 1,
+		"seed": 1337
+	},
+	"launcher": {
+		"check_integrity": true,
+		"executable": "launcher.exe",
+		"hash": "123456asdf"
+	},
+	"heartbeat": {
+		"enabled": true,
+		"type": 1, // 1: check between NoMercy service <> NoMercy api server, 2: NoMercy service <> Game server
+		"heartbeat_interval": 60000, // ms
+		"heartbeat_seed": 1337
+	}
+}

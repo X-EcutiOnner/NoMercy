@@ -1,0 +1,41 @@
+{
+	"enabled":  false,
+	"version": 1,
+	"exclude_size_threshold": 0,
+	"files": [
+		"abc.txt",
+		"def.dll",
+		"data/plugin.sys"
+	],
+	"virtual_files": [
+		"source\\monster\\bear\\00.gr2"
+	],
+	"virtual_file_aliases": {
+		"source\\":  "d:\\xyz work\\"
+	},
+	"paths": [
+		{
+			"optional":  false,
+			"path": "folder_1",
+			"ignores": [
+				"*.csv"
+			],
+			"aliases": {
+				"game\\bin32release": "game\\bin32"
+			},
+			"ignored_sub_paths": [
+			],
+			"recursive_visit": true,
+			"ignore_files_without_extension": false
+		},
+		{
+			"optional": false,
+			"path": "Binx",
+			"ignores": [],
+			"aliases": {},
+			"ignored_sub_paths": [],
+			"recursive_visit": false,
+			"ignore_files_without_extension": false
+		}
+	]
+}

@@ -1,0 +1,1 @@
+// Check (NtUser)Get(Async)KeyState in game process, used module/func with exception handler hook

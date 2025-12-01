@@ -1,0 +1,9 @@
+#pragma once
+
+enum EGameCodes
+{
+	GAME_CODE_NULL,
+	GAME_CODE_DUMMYAPP,
+	GAME_CODE_METIN2,
+	GAME_CODE_MAX
+};

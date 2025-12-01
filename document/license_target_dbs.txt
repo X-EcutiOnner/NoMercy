@@ -1,0 +1,3 @@
+license
+nomercy_config
+server_config

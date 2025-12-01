@@ -1,0 +1,21 @@
+[
+	{
+		"dir": "../extern/packed_data/scripts",
+		"file": "NoMercy.pak",
+		"visualdir": "",
+		"key": [
+			0, 0, 2, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
+			0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4
+		],
+		"type": ["archive_flag_lz4", "archive_flag_aes256"],
+		"version": 2,
+		"ignores": [
+			"*.csv",
+			"*error_lookup.pyc",
+			"*test*.pyc"
+		],
+		"patches": {
+			"stdlib\\": ""
+		}
+	}
+]

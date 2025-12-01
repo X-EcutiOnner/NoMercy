@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.8)
+project(WindowsUtilities)
+
+add_subdirectory(${PROJECT_SOURCE_DIR}/CheatDBGenerator)
+add_subdirectory(${PROJECT_SOURCE_DIR}/FileEncryptor)
+add_subdirectory(${PROJECT_SOURCE_DIR}/LogDecryptor)
+add_subdirectory(${PROJECT_SOURCE_DIR}/GameDataBuilder)
+add_subdirectory(${PROJECT_SOURCE_DIR}/GameIntegrityHelper)
+add_subdirectory(${PROJECT_SOURCE_DIR}/NoMercyDataBuilder)
+add_subdirectory(${PROJECT_SOURCE_DIR}/Protector)

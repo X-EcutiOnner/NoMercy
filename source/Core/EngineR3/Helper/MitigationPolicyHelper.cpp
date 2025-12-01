@@ -1,0 +1,1 @@
+// get getter funcs from logcollector

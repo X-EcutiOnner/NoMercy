@@ -1,0 +1,667 @@
+{
+	"date": 1655019619,
+	
+	"single": [
+		{ // 0
+			"id":  "",
+			"detection_name": "Unwanted application #1 / TEST",
+			"scan_type": 1,
+			"disabled": true,
+			"param_1_value": "putty.exe"
+		},
+		{ // 1
+			"id": "",
+			"detection_name": "Unwanted application #2 / TEST",
+			"scan_type": 2,
+			"disabled": true,
+			"param_1_value": "8A4882EE93E1F23BF9241E4BA0BF7BD67F88A364"
+		}
+	],
+
+	"blacklist": [
+		{ // 0
+			"description": "anti vm - virtual box device names",
+			"version": "1.0",
+			"type": 1,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"VBoxMiniRdrDN",
+				"VBoxGuest",
+				"VBoxTrayIPC",
+				"pipe\\VBoxTrayIPC",
+				"pipe\\VBoxMiniRdD"
+			]
+		},
+		{ // 1
+			"description": "cheat device names",
+			"version": "1.0",
+			"type": 1,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"BlackBone", // https://github.com/DarthTon/Blackbone
+				"Capcom",
+				"Htsysm72FB", // Street Fighter 5 - 'Capcom.sys' (https://twitter.com/TheWack0lian/status/779397840762245124)
+				"kernelhop", // https://github.com/Zer0Mem0ry/KernelBhop
+				"VBoxDrv", // https://github.com/hfiref0x/TDL
+				"HyperHideDrv",
+				"kldbgdrv",
+				"TitanHide",
+				"HyperDbgDebuggerDevice",
+				// Common hijackable system devices
+				"Beep",
+				"Null"
+			]
+		},
+		{ // 2
+			"description": "Event names",
+			"version": "1.0",
+			"type": 2,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"PC Hunter StandardMadeByEpoolsoft"
+			]
+		},
+		{ // 3
+			"description": "File mapping objects",
+			"version": "1.0",
+			"type": 3,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"DUALMEM",
+				"CHEATENGINE",
+				"CE_HYPER_SCAN_SETTING",
+				"Sora",
+				"lengendx90",
+				"KUHYPERSETTING",
+				"CEHYPERSCANSETTINGS",
+				"MoonLight"
+			]
+		},
+		{ // 4
+			"description": "Window titles",
+			"version": "1.0",
+			"type": 4,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"IDA",
+				"ida",
+				"HxD",
+				"cheatengine",
+				"Cheat Engine",
+				"x96dbg",
+				"x32dbg",
+				"x64dbg",
+				"Wireshark",
+				"OllyDbg",
+				"Ghidra",
+				"Process Hacker",
+				"WinDbg",
+				"ReClass",
+				"CrySearch",
+				"ArtMoney",
+				"Squalr",
+				"Memory Scanner",
+				"File Monitor - Sysinternals: www.sysinternals.com",
+				"Process Monitor - Sysinternals: www.sysinternals.com",
+				"IDA v7.0.170914",
+				"Scylla x64 v0.9.8",
+				"IAT Autosearch",
+				"ReClassEx",
+				"ReClassEx64"
+			]
+		},
+		{ // 5
+			"description": "Window classnames",
+			"version": "1.0",
+			"type": 5,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"WinDbgFrameClass",
+				"OLLYDBG",
+				"OllyDbg",
+				"ID", // Immunity debugger
+				"Zeta Debugger",
+				"Rock Debugger",
+				"WindbgMainClass",
+				"ObsidianGUI",
+				"unhookerclass",
+				// "Window",
+				"MurGeeAutoMouseClick",
+				"Somethin",
+				"PROCEXPL",
+				"AutoIt v3 GUI",
+				"AnVirMainFrame",
+				"ProcessHacker",
+				"Warecase_XTM_Frame",
+				"TFormMain.UnicodeClass",
+				"TWildProxyMain",
+				"TUserdefinedform",
+				"TformAddressChange",
+				"TMemoryBrowser",
+				"TFoundCodeDialog",
+				"RobotSoftMouseKeyboardRecorder_OJMODNR3R",
+				"PhTreeNew",
+				"XTPMainFrame",
+				"Dll-Injector",
+				"ThunderRT6FormDC",
+				"AutoHotkeyGUI",
+				"GBDYLLO",
+				"pediy06",
+				"FilemonClass",
+				"PROCMON_WINDOW_CLASS",
+				"RegmonClass"
+			]
+		},
+		{ // 6
+			"description": "Module names",
+			"version": "1.0",
+			"type": 6,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"artmoney",
+				"aimbot",
+				"trainer",
+				"wpespy",
+				"windbg",
+				"cheat",
+				"asmjit",
+				"titanengine",
+				"x32_dbg",
+				"x64_dbg",
+				"x64dbg",
+				"x32dbg",
+				"luaclient",
+				"lua53",
+				"libipt",
+				"winhook",
+				"ollydbg",
+				"speedhack",
+				"vehdebug",
+				"allochook",
+				"ced3d",
+				"wpeprospy",
+				"timbus",
+				"Dumper.dll",
+				"Glob.dll",
+				"mswsock.dll",
+				"perl512.dll",
+				"vmclientcore.dll",
+				"vmwarewui.dll",
+				"virtualbox.dll",
+				"qtcorevbox4.dll",
+				"vboxvmm.dll",
+				"netredirect.dll",
+				"atmfd.dll",
+				"cdd.dll",
+				"rdpdd.dll",
+				"vga.dll",
+				"workerdd.dll",
+				"msvbvm60.dll"
+			]
+		},
+		{ // 7
+			"description": "Process names",
+			"version": "1.0",
+			"type": 7,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"artmoney",
+				"aimbot",
+				"trainer",
+				"cheatengine",
+				"cheat engine",
+				"inject",
+				"windbg",
+				"x64dbg",
+				"x32dbg",
+				"ollydbg",
+				"memory viewer",
+				"injector",
+				"wpepro",
+				"processhacker.exe",
+				"tcpview.exe",
+				"filemon.exe",
+				"regmon.exe",
+				"procmon.exe",
+				"procexp.exe",
+				"idaq.exe",
+				"idaq64.exe",
+				"immunitydebugger.exe",
+				"wireshark.exe",
+				"dumpcap.exe",
+				"hookexplorer.exe",
+				"proc_analyzer.exe",
+				"windbg.exe",
+				"sniff_hit.exe",
+				"joeboxserver.exe",
+				"fiddler.exe",
+				"httpdebugger.exe",
+				"VGAuthService",
+				"vmacthlp"
+			]
+		},
+		{ // 8
+			"description": "Generic Anti VM service names",
+			"version": "1.0",
+			"type": 8,
+			"options": {
+				"disabled": true,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"VBoxWddm",
+				"VBoxSF", //VirtualBox Shared Folders
+				"VBoxMouse", //VirtualBox Guest Mouse
+				"VBoxGuest", //VirtualBox Guest Driver
+				// "vmci", //VMWare VMCI Bus Driver
+				"vmhgfs", //VMWare Host Guest Control Redirector
+				"vmmouse",
+				"vmmemctl", //VMWare Guest Memory Controller Driver
+				"vmusb",
+				"vmusbmouse",
+				"vmx_svga",
+				"vmxnet",
+				// "vmx86",
+				//
+				"vpcbus",
+				"vpc-s3",
+				"vpcuhub",
+				"msvmmouf",
+				"VBoxMouse",
+				"VBoxGuest",
+				"VBoxSF",
+				"xenevtchn",
+				"xennet",
+				"xennet6",
+				"xensvc",
+				"xenvdb",
+				// 
+				"vmdebug",
+				"VMTools"
+			]
+		},
+		{ // 9
+			"description": "Handle owner app classname blacklist",
+			"version": "1.0",
+			"type": 9,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"WindowsForms10.Window.8.app",
+				"treelist",
+				"eter -",
+				"syslistview",
+				"injector",
+				"autoIt",
+				"n-jector",
+				"ollydbg",
+				"procmon",
+				"processhacker",
+				"unhooker",
+				"windbg",
+				"debugger",
+				"idawindow",
+				"autohotkeygui",
+				"TSearch.ClientClass",
+				"DDEMLMom",
+				"Calc" // Calc - aka. MHS Memory editor
+			]
+		},
+		{ // 10
+			"description": "Anti VM based process names",
+			"version": "1.0",
+			"type": 7,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"prl_cc.exe",
+				"prl_tools.exe",
+				"xenservice.exe",
+				"vmtoolsd.exe",
+				"vgauthservice.exe",
+				"vmacthlp.exe",
+				"vmsrvc.exe",
+				"vmusrvc.exe",
+				"qemu-ga.exe",
+				"vboxservice.exe"
+			]
+		},
+		{ // 11
+			"description": "Unwanted system modules",
+			"version": "1.0",
+			"type": 6,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"..\\..\\Plugins\\ZipUtility\\ThirdParty\\7zpp\\dll\\Win64\\7z.dll",
+				"hal.dll",
+				"nvToolsExt64_1.dll",
+				"ws2detour_x96.dll",
+				"networkdllx64.dll",
+				"nxdetours_64.dll",
+				"nvcompiler.dll",
+				"wmp.dll",
+				"Project1.dll",
+				"mslib.dll",
+				"C:\\Windows\\mscorlib.ni.dll"
+			]
+		},
+		{ // 12
+			"description": "Anti VM based driver names",
+			"version": "1.0",
+			"type": 10,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"hsfs.sys",
+				"vmhgfs.sys",
+				"prleth.sys",
+				"prlfs.sys",
+				"prlmouse.sys",
+				"prlvideo.sys",
+				"prl_pv32.sys",
+				"vpc-s3.sys",
+				"vmsrvc.sys",
+				"vmx86.sys",
+				"vmnet.sys",
+				"vm3dmp.sys"
+			]
+		},
+		{ // 13
+			"description": "Blacklisted module timestamps for game process",
+			"version": "1.0",
+			"type": 11,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"0x5B12C900",
+				"0x5A180C35",
+				"0xFC9B9325",
+				"0x456CED13",
+				"0x46495AD9",
+				"0x47CDEE2B",
+				"0x469FF22E",
+				"0x48EC3AD7",
+				"0x5A8E6020",
+				"0x55C85371",
+				"0x456CED13",
+				"0x46495AD9",
+				"0x47CDEE2B",
+				"0x469FF22E",
+				"0x48EC3AD7",
+				"0xFC9B9325",
+				"0x5A8E6020",
+				"0x55C85371"
+			]
+		},
+		{ // 14
+			"description": "Blacklisted module export function names",
+			"version": "1.0",
+			"type": 12,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"___CPPdebugHook",
+				"NextHook",
+				"ReflectiveLoader",
+				"@@Mainwindow@Initialize",
+				"TMethodImplementationIntercept",
+				"_FormMain"
+			]
+		},
+		{ // 15
+			"description": "Blacklisted driver names",
+			"version": "1.0",
+			"type": 10,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"Dbgv.sys",
+				"PROCMON23.sys",
+				"PROCEXP152.sys",
+				"dbk32.sys",
+				"dbk64.sys",
+				"BlackBoneDrv.sys",
+				"apimonitor-drv.sys",
+				"IlvMoney1129.sys",
+				"IlvMoney1059a.sys",
+				"inject.sys",
+				"SbieDrv.sys",
+				"sice.sys",
+				"ntice.sys",
+				"siwvid.sys",
+				"winice.sys",
+				"syser.sys",
+				"sice.vxd",
+				"77fba431.sys", // windbg
+				"SbieSvc.sys",
+				"HttpDebuggerSdk.sys",
+				"SharpOD_Drv.sys",
+				"windowskernelexplorer.sys",
+				"ksdumperdriver.sys",
+				"capcom.sys",
+				"pchunter",
+				"macromap",
+				"kdmapper",
+				"blackbone",
+				"apimonitor-drv-x64.sys",
+				"hanolly.sys",
+				"extrem.sys",
+				"extremehide.sys",
+				"frdtsc.sys",
+				"fengyue.sys"
+			]
+		},
+		{ // 16
+			"description": "Vulnerable drivers",
+			"version": "1.0",
+			"type": 10,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"iqvw64e.sys",
+				"iqvw32.sys",
+				"ADV64DRV.sys",
+				"Agent64.sys",
+				"ALSysIO64.sys",
+				"amifldrv64.sys",
+				"AsIO.sys",
+				"AsrAutoChkUpdDrv.sys",
+				"AsrDrv10.sys",
+				"AsrDrv101.sys",
+				"AsrIbDrv.sys",
+				"AsrOmgDrv.sys",
+				"AsrRapidStartDrv.sys",
+				"AsrSmartConnectDrv.sys",
+				"AsUpIO.sys",
+				"atillk64.sys",
+				"BS_Def64.sys",
+				"CITMDRV_AMD64.sys",
+				"CITMDRV_IA64.sys",
+				"cpuz_x64.sys",
+				"cpuz1",
+				"GLCKIO2.sys",
+				"inpoutx64.sys",
+				"kprocesshacker.sys",
+				"rzpnk.sys",
+				"v0eDkxSUIvz.sys",
+				"gdrv.sys",
+				"Driver.sys",
+				"amp.sys",
+				"asmmap.sys",
+				"asmmap64.sys",
+				"phymemx64.sys"
+			]
+		},
+		{ // 17
+			"description": "Blacklisted OutputDebugString strings",
+			"version": "1.0",
+			"type": 13,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"oldprocessid != processid",
+				"d != p",
+				"tsymbollisthandler",
+				"loadmodulelist",
+				"calling peinfo",
+				"openprocessepilogue",
+				"pr0cess",
+				"vmx_enabled",
+				"TSavedScanHandler"
+			]
+		},
+		{ // 18
+			"description": "Blacklisted service names",
+			"version": "1.0",
+			"type": 8,
+			"options": {
+				"disabled": false,
+				"substr": false,
+				"case": false,
+				"fatal": false
+			},
+			"params": [
+				"KProcessHacker",
+				"CEDRIVER",
+				"XueTr",
+				"Win64AST"
+			]
+		}
+	],
+
+	"whitelist": [
+		{ // 0
+			"description": "Process hollowing whitelist",
+			"type": 1,
+			"params": [
+				"sharex.exe",
+				"wallpaper32.exe"
+			]
+		},
+		{ // 1
+			"description": "NtMapViewOfSection hook target whitelist",
+			"type": 2,
+			"params": [
+				"microsoft visual studio",
+				"windows live",
+				"nahimic",
+				"idmmkb",
+				"tv_w32",
+				"filter",
+				"pancafe",
+				"nvidia",
+				"tiptsf",
+				"btmmhook",
+				"fraps",
+				"bandicam",
+				"mdnsnsp.dll",
+				"wincrt.dll"
+			]
+		},
+		{ // 2
+			"description": "Debug privilege removed process whitelist",
+			"type": 3,
+			"params": [
+				"bdcam.exe",
+				"obs64.exe",
+				"ekrn.exe",
+				"egui.exe",
+				"MSASCui.exe",
+				"x_accel.exe"
+			]
+		},
+		{ // 3
+			"description": "Window scan class whitelist",
+			"type": 4,
+			"params": [
+				"MozillaWindowClass",
+				"MozillaUIWindowClass",
+				"Chrome_WidgetWin_1", // chrome & other chromium based (incl. electron like discord)
+				"SafariTaskbarTabWindow",
+				"IEFrame",
+				"OperaWindowClass",
+				"ZPPTMainFrmWndClassEx", // zoom
+				"TChatRichEdit" // skype
+			]
+		}
+	]
+}

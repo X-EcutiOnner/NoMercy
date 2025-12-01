@@ -1,0 +1,52 @@
+#pragma once
+
+namespace NoMercyTLS
+{
+	// Windows Modules
+	extern HMODULE gs_hNtdll;
+	extern HMODULE gs_hKernel32;
+
+	// APIs
+	NTSTATUS _RtlAcquirePrivilege(PULONG Privilege, ULONG NumPriv, ULONG Flags, PVOID* ReturnedState);
+	VOID _RtlReleasePrivilege(PVOID StatePointer);
+
+	// Helper functions
+	LPVOID TLS_GetProcAddress(HMODULE hModule, const char* c_szApiName);
+	DWORD TLS_GetSyscallID(const char* c_szAPIName);
+
+	PVOID TLS_AllocateMemory(ULONG ulSize);
+	bool TLS_FreeMemory(LPVOID lpBase, ULONG ulSize);
+	bool TLS_MessageBox(const wchar_t* c_wszTitle, const wchar_t* c_wszMessage);
+
+	// Init
+	bool InitializeWinAPIs();
+
+	// Syscall wrappers
+	namespace NT
+	{
+		NTSTATUS NtAllocateVirtualMemory(HANDLE, PVOID*, ULONG, PSIZE_T, ULONG, ULONG);
+		NTSTATUS NtCreateSection(PHANDLE, ACCESS_MASK, POBJECT_ATTRIBUTES, PLARGE_INTEGER, ULONG, ULONG, HANDLE);
+		NTSTATUS NtMapViewOfSection(HANDLE, HANDLE, PVOID*, ULONG_PTR, SIZE_T, PLARGE_INTEGER, PSIZE_T, SECTION_INHERIT, ULONG, ULONG);
+		NTSTATUS NtUnmapViewOfSection(HANDLE, PVOID);
+		NTSTATUS NtFreeVirtualMemory(HANDLE, PVOID*, PSIZE_T, ULONG);
+		NTSTATUS NtProtectVirtualMemory(HANDLE, PVOID*, SIZE_T*, ULONG, PULONG);
+		NTSTATUS NtLockVirtualMemory(HANDLE, PVOID*, PSIZE_T, ULONG);
+		NTSTATUS NtQueryInformationProcess(HANDLE, PROCESSINFOCLASS, PVOID, ULONG, PULONG);
+		NTSTATUS NtSetInformationProcess(HANDLE, PROCESSINFOCLASS, PVOID, ULONG);
+		NTSTATUS NtQueryVirtualMemory(HANDLE, PVOID, MEMORY_INFORMATION_CLASS, PVOID, SIZE_T, PSIZE_T);
+		NTSTATUS NtReadVirtualMemory(HANDLE, PVOID, PVOID, SIZE_T, PSIZE_T);
+		NTSTATUS NtFreeVirtualMemory(HANDLE, PVOID*, PSIZE_T, ULONG);
+		NTSTATUS NtSetInformationThread(HANDLE, THREADINFOCLASS, PVOID, ULONG);
+		NTSTATUS NtWriteVirtualMemory(HANDLE, PVOID, CONST VOID*, SIZE_T, PSIZE_T);
+		NTSTATUS NtDuplicateObject(HANDLE, HANDLE, HANDLE, PHANDLE, ACCESS_MASK, ULONG, ULONG);
+		NTSTATUS NtCreateThreadEx(PHANDLE, ACCESS_MASK, POBJECT_ATTRIBUTES, HANDLE, PVOID, PVOID, ULONG, SIZE_T, SIZE_T, SIZE_T, PPS_ATTRIBUTE_LIST);
+		NTSTATUS NtClose(HANDLE);
+		NTSTATUS NtRemoveProcessDebug(HANDLE, HANDLE);
+		NTSTATUS NtSetInformationDebugObject(HANDLE, DEBUGOBJECTINFOCLASS, PVOID, ULONG, PULONG);
+		NTSTATUS NtQuerySystemInformation(SYSTEM_INFORMATION_CLASS, PVOID, ULONG, PULONG);
+		NTSTATUS NtGetContextThread(HANDLE, PCONTEXT);
+		NTSTATUS NtQueryInformationThread(HANDLE, THREADINFOCLASS, PVOID, ULONG, PULONG);
+		NTSTATUS NtOpenThread(PHANDLE, ACCESS_MASK, POBJECT_ATTRIBUTES, PCLIENT_ID);
+		NTSTATUS NtTerminateThread(HANDLE, NTSTATUS);
+	};
+}

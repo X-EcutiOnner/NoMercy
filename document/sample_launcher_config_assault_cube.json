@@ -1,0 +1,13 @@
+{
+    "stage": "dev",
+    "dev": {
+        "executable" : "bin_win32\\ac_client.exe",
+        "path" : "",
+        "parameters" : "bin_win32\\ac_client.exe --home=profile --init",
+        "game_code" : 1,
+        "hide_splash_screen" : false,
+        "open_faq_page" : true,
+        "stage": "dev",
+        "stage_key": "1337"
+    }
+}

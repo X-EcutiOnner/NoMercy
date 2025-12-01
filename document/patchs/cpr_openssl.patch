@@ -1,0 +1,45 @@
+commit fb4360df16e7c1fa00105e9c22d9aba2d339606a
+Author: mq1n <mq1n@protonmail.com>
+Date:   Mon Jul 1 11:42:16 2024 +0300
+
+    cpr patch
+
+diff --git a/ports/cpr/portfile.cmake b/ports/cpr/portfile.cmake
+index eca6d45f1..4dc8c3d9c 100644
+--- a/ports/cpr/portfile.cmake
++++ b/ports/cpr/portfile.cmake
+@@ -21,6 +21,7 @@ vcpkg_cmake_configure(
+         -DCPR_BUILD_TESTS=OFF
+         -DCPR_USE_SYSTEM_CURL=ON
+         ${FEATURE_OPTIONS}
++        -DCPR_FORCE_OPENSSL_BACKEND=ON
+         # skip test for unused sanitizer flags
+         -DTHREAD_SANITIZER_AVAILABLE=OFF
+         -DADDRESS_SANITIZER_AVAILABLE=OFF
+diff --git a/ports/cpr/vcpkg.json b/ports/cpr/vcpkg.json
+index 6a7400895..451957421 100644
+--- a/ports/cpr/vcpkg.json
++++ b/ports/cpr/vcpkg.json
+@@ -34,8 +34,7 @@
+           ]
+         },
+         {
+-          "name": "openssl",
+-          "platform": "linux"
++          "name": "openssl"
+         }
+       ]
+     }
+diff --git a/ports/curl/vcpkg.json b/ports/curl/vcpkg.json
+index 339bf8983..6685681c5 100644
+--- a/ports/curl/vcpkg.json
++++ b/ports/curl/vcpkg.json
+@@ -176,7 +176,7 @@
+           "name": "curl",
+           "default-features": false,
+           "features": [
+-            "schannel"
++            "openssl"
+           ],
+           "platform": "(windows & !uwp) | mingw"
+         },

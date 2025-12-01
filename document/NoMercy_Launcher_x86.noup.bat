@@ -1,0 +1,1 @@
+NoMercy_Launcher_x86.exe --no_update 1

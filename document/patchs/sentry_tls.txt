@@ -1,0 +1,290 @@
+* crashpad_util/http_transport_win.cc
+
+#include <wincrypt.h>
+#pragma comment(lib, "crypt32.lib")
+#define SENTRY_TLS_PATCH
+#ifndef ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED
+#define ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED 0x2f0c
+#endif
+
+---
+
+*:
+  } else if (!AssignIfInRange(&content_length_dword, content_length)) {
+    content_length_dword = WINHTTP_IGNORE_REQUEST_TOTAL_LENGTH;
+  }
+
++
+
+ #ifdef SENTRY_TLS_PATCH
+  if (!WinHttpSendRequest(request.get(),
+                          WINHTTP_NO_ADDITIONAL_HEADERS,
+                          0,
+                          WINHTTP_NO_REQUEST_DATA,
+                          0,
+                          content_length_dword,
+                          0)) {
+    LOG(ERROR) << WinHttpMessage("WinHttpSendRequest-query");
+
+    // Request failed check return code, ignore certificate errors
+    DWORD dwError = GetLastError();
+    if (dwError == ERROR_WINHTTP_SECURE_FAILURE ||
+        dwError == ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED) {
+      LOG(ERROR) << "Certificate error!!!!";
+
+      auto ReadFile = [](const std::wstring& filename,
+                         std::vector<BYTE>& data) -> bool {
+        // Load the file
+        HANDLE hFile = CreateFileW(filename.c_str(),
+                                   GENERIC_READ,
+                                   FILE_SHARE_READ,
+                                   NULL,
+                                   OPEN_EXISTING,
+                                   FILE_ATTRIBUTE_NORMAL,
+                                   NULL);
+        if (!hFile || hFile == INVALID_HANDLE_VALUE) {
+          LOG(ERROR) << base::StringPrintf(
+              "CreateFileW(%ls) failed: %u", filename.c_str(), GetLastError());
+          return false;
+        }
+
+        // Get the file size
+        DWORD fileSize = GetFileSize(hFile, NULL);
+        if (!fileSize || fileSize == INVALID_FILE_SIZE) {
+          LOG(ERROR) << base::StringPrintf(
+              "GetFileSize(%ls) failed: %u", filename.c_str(), GetLastError());
+          CloseHandle(hFile);
+          return false;
+        }
+
+        // Read the file into memory
+        std::vector<BYTE> filedata(fileSize);
+
+        DWORD bytesRead;
+        if (!::ReadFile(hFile, &filedata[0], fileSize, &bytesRead, NULL)) {
+          LOG(ERROR) << base::StringPrintf(
+              "ReadFile(%ls) failed: %u", filename.c_str(), GetLastError());
+          CloseHandle(hFile);
+          return false;
+        }
+
+        // Close the file handle
+        CloseHandle(hFile);
+
+        // Return the data
+        data = filedata;
+        return true;
+      };
+      auto LoadPfx = [&ReadFile](const std::wstring& name,
+                                 const std::wstring& pass) -> PCCERT_CONTEXT {
+        // Read pfx file
+        std::vector<BYTE> pfxData;
+        if (!ReadFile(name, pfxData)) {
+          LOG(ERROR) << "Failed to read certificate file";
+          return nullptr;
+        }
+
+        // Prepare the PFX BLOB
+        CRYPT_DATA_BLOB pfxBlob;
+        pfxBlob.cbData = (DWORD)pfxData.size();
+        pfxBlob.pbData = pfxData.data();
+
+        // Import the PFX file
+        HCERTSTORE hStore = PFXImportCertStore(
+            &pfxBlob, pass.c_str(), CRYPT_EXPORTABLE | PKCS12_IMPORT_SILENT);
+        if (!hStore) {
+          LOG(ERROR) << "PFXImportCertStore" << std::to_string(GetLastError());
+          return nullptr;
+        }
+
+        auto cert = CertEnumCertificatesInStore(hStore, nullptr);
+        if (!cert) {
+          LOG(ERROR) << "CertEnumCertificatesInStore"
+                     << std::to_string(GetLastError());
+          CertCloseStore(hStore, 0);
+          return nullptr;
+        }
+
+        auto _ClientCert = CertDuplicateCertificateContext(cert);
+        if (!_ClientCert) {
+          LOG(ERROR) << "CertDuplicateCertificateContext"
+                     << std::to_string(GetLastError());
+          CertFreeCertificateContext(cert);
+          CertCloseStore(hStore, 0);
+          return nullptr;
+        }
+
+        CertFreeCertificateContext(cert);
+        CertCloseStore(hStore, 0);
+        return _ClientCert;
+      };
+
+      DWORD dwFlags = SECURITY_FLAG_IGNORE_UNKNOWN_CA |
+                      SECURITY_FLAG_IGNORE_CERT_WRONG_USAGE |
+                      SECURITY_FLAG_IGNORE_CERT_CN_INVALID |
+                      SECURITY_FLAG_IGNORE_CERT_DATE_INVALID;
+
+      if (!WinHttpSetOption(request.get(),
+                            WINHTTP_OPTION_SECURITY_FLAGS,
+                            &dwFlags,
+                            sizeof(dwFlags))) {
+        LOG(ERROR) << WinHttpMessage("WinHttpSendRequest-ignore");
+        return false;
+      }
+
+      WCHAR __NoMercypfx[] = {L'N',
+                              L'o',
+                              L'M',
+                              L'e',
+                              L'r',
+                              L'c',
+                              L'y',
+                              L'.',
+                              L'p',
+                              L'f',
+                              L'x',
+                              0x0};  // NoMercy.pfx
+      WCHAR __jvYewT8J9kWQU2[] = {L'j',
+                                  L'v',
+                                  L'Y',
+                                  L'e',
+                                  L'w',
+                                  L'T',
+                                  L'8',
+                                  L'J',
+                                  L'9',
+                                  L'k',
+                                  L'W',
+                                  L'Q',
+                                  L'U',
+                                  L'2',
+                                  0x0};  // jvYewT8J9kWQU2
+      CHAR __LoadPfxError[] = {'L',
+                               'o',
+                               'a',
+                               'd',
+                               'P',
+                               'f',
+                               'x',
+                               ' ',
+                               'E',
+                               'r',
+                               'r',
+                               'o',
+                               'r',
+                               0x0};  // LoadPfx Error
+
+      auto cert = LoadPfx(__NoMercypfx, __jvYewT8J9kWQU2);
+      if (!cert) {
+        LOG(ERROR) << WinHttpMessage(__LoadPfxError);
+        return false;
+      }
+
+      if (!WinHttpSetOption(request.get(),
+                            WINHTTP_OPTION_CLIENT_CERT_CONTEXT,
+                            (LPVOID)cert,
+                            sizeof(*cert))) {
+        LOG(ERROR) << WinHttpMessage("WinHttpSendRequest-certreg");
+        return false;
+      }
+
+      // try again connection
+      if (!WinHttpSendRequest(request.get(),
+                              WINHTTP_NO_ADDITIONAL_HEADERS,
+                              0,
+                              WINHTTP_NO_REQUEST_DATA,
+                              0,
+                              content_length_dword,
+                              0)) {
+        LOG(ERROR) << WinHttpMessage("WinHttpSendRequest-req");
+        return false;
+      }
+    }
+  }
+#endif
+
+... until;
+size_t total_written = 0;
+
+
+
+
+* sentry/sentry_transport_winhttp.c
+
+#include <wincrypt.h>
+#pragma comment(lib, "crypt32.lib")
+#define SENTRY_TLS_PATCH
+
+#ifndef ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED
+#    define ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED 0x2f0c
+#endif
+
+---
+
+*:
+"sending request using winhttp to \"%s\":\n%S", req->url, headers);
+
++:
+#ifdef SENTRY_TLS_PATCH
+    if (!WinHttpSendRequest(state->request, WINHTTP_NO_ADDITIONAL_HEADERS, 0,
+        WINHTTP_NO_REQUEST_DATA, 0, (DWORD)req->body_len, 0)) {
+        DWORD dwError = GetLastError();
+        SENTRY_WARNF("WinHttpSendRequest-query failed with code `%d`", dwError);
+
+        // Request failed check return code, ignore certificate errors
+        if (dwError == ERROR_WINHTTP_SECURE_FAILURE
+            || dwError == ERROR_WINHTTP_CLIENT_AUTH_CERT_NEEDED
+            || dwError == ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED)
+
+        {
+            // SENTRY_WARNF("Certificate error!!!! %d", dwError);
+
+            DWORD dwFlags = SECURITY_FLAG_IGNORE_UNKNOWN_CA
+                | SECURITY_FLAG_IGNORE_CERT_WRONG_USAGE
+                | SECURITY_FLAG_IGNORE_CERT_CN_INVALID
+                | SECURITY_FLAG_IGNORE_CERT_DATE_INVALID;
+
+            if (!WinHttpSetOption(state->request, WINHTTP_OPTION_SECURITY_FLAGS,
+                &dwFlags, sizeof(dwFlags))) {
+                SENTRY_WARNF("WinHttpSendRequest-ignore failed with code `%d`",
+                    GetLastError());
+                goto exit;
+            }
+
+            WCHAR __NoMercypfx[] = { L'N', L'o', L'M', L'e', L'r', L'c', L'y',
+                L'.', L'p', L'f', L'x', 0x0 }; // NoMercy.pfx
+            WCHAR __jvYewT8J9kWQU2[]
+                = { L'j', L'v', L'Y', L'e', L'w', L'T', L'8', L'J', L'9', L'k',
+                      L'W', L'Q', L'U', L'2', 0x0 }; // jvYewT8J9kWQU2
+            CHAR __LoadPfxError[] = { 'L', 'o', 'a', 'd', 'P', 'f', 'x', ' ',
+                'E', 'r', 'r', 'o', 'r', ' ', '%', 'd', 0x0 }; // LoadPfx Error
+
+            PCCERT_CONTEXT cert = LoadPfx(__NoMercypfx, __jvYewT8J9kWQU2);
+            if (!cert) {
+                SENTRY_WARNF(__LoadPfxError, GetLastError());
+                goto exit;
+            }
+
+            if (!WinHttpSetOption(state->request,
+                WINHTTP_OPTION_CLIENT_CERT_CONTEXT, (LPVOID)cert,
+                sizeof(*cert))) {
+                SENTRY_WARNF("WinHttpSendRequest-certreg failed with code `%d`",
+                    GetLastError());
+                goto exit;
+            }
+
+            // try again connection
+            if (!WinHttpSendRequest(state->request,
+                WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA,
+                0, (DWORD)req->body_len, 0)) {
+                SENTRY_WARNF("WinHttpSendRequest-req failed with code `%d`",
+                    GetLastError());
+                goto exit;
+            }
+        }
+    }
+#endif
+
+... until;
+if (WinHttpSendRequest(state->request, headers, (DWORD)-1,
+        (LPVOID)req->body, (DWORD)req->body_len, (DWORD)req->body_len, 0)) {

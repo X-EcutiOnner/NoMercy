@@ -1,0 +1,22 @@
+Standalone version of: https://github.com/Broihon/GH-Injector-Library
+Additional methods;
+https://github.com/Mecanik/MecanikProcessBreaker/
+https://github.com/mq1n/SetWinEventHook_DllInjector
+https://github.com/odzhan/injection
+https://github.com/BreakingMalware/PowerLoaderEx
+https://github.com/BreakingMalwareResearch/atom-bombing
+https://github.com/stephenfewer/ReflectiveDLLInjection
+https://githacks.org/_xeroxz/nasa-injector
+https://github.com/D4stiny/ThreadJect
+
+Create test modules;
+	Empty dll
+	Empty dll with Dllmain
+	Empty dll with Dllmain + CRT linked
+	MessageBox func with Dllmain + CRT linked
+
+Handle methods;
+	OpenProcess
+	CreateProcess child process
+	DuplicateHandle
+	Handle stealer methods...

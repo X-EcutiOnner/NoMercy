@@ -1,0 +1,3 @@
+	file manager tool(FileEncryptor.exe/sample config)
+	game config file(NoMercy_Game_data.data) builder
+	Anticheat modules(launcher/bootstrapper, setup, loader.dll, nomercy folder)

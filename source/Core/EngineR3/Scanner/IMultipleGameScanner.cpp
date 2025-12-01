@@ -1,0 +1,1 @@
+// Scan by mutex, process list(executable with path), helper pipe server connections

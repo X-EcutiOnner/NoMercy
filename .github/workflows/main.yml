@@ -1,0 +1,89 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - lite
+  pull_request:
+
+jobs:
+  build:
+    if: "contains(github.event.head_commit.message, 'build')"
+    name: Build the action
+    # runs-on: windows-latest
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          # pip install -r extern/scripts/requirements.txt
+          python -m pip install aioboto3 aiofiles jstyleson
+      - name: Install Git LFS
+        run: |
+          choco install git-lfs -y
+        shell: powershell
+      - name: Pull LFS
+        run: |
+          git lfs install
+          git lfs pull
+
+      - name: Build x86
+        run: |
+          python extern/scripts/build.py --arch=x86 --build_mode=RelWithDebInfo --rebuild --branch_name=${{ github.ref }}
+
+      # - name: Upload artifacts to Github
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: build_x86
+      #     path: |
+      #       source/Client/UserModule/include/Index.h
+      #       Bin/NoMercy_Module_x*.lib
+      #       Bin/*.dll
+      #       Bin/*.bak
+      #       Bin/*.map
+      #       Bin/*.pdb
+
+      - name: Create Bin_released folder
+        run: New-Item -Path Bin_released -ItemType Directory -Force
+
+      - name: Copy compiled files to Bin_released
+        run: |
+          Copy-Item source/Client/UserModule/include/Index.h Bin_released/NoMercy.h
+          Copy-Item Bin/NoMercy_Module_x*.lib Bin_released/
+          Copy-Item Bin/*.dll Bin_released/
+          Copy-Item Bin/*.bak Bin_released/
+          Copy-Item Bin/*.map Bin_released/
+          Copy-Item Bin/*.pdb Bin_released/
+
+      # - name: Upload to R2
+      #   uses: shallwefootball/s3-upload-action@master
+      #   id: R2
+      #   with:
+      #     aws_key_id: ${{ secrets.R2_ACCESS_KEY_ID }}
+      #     aws_secret_access_key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      #     aws_bucket: ${{ secrets.R2_BUCKET }}
+      #     endpoint: https://c7e463d08ca2349d749208dde929ff65.r2.cloudflarestorage.com
+      #     source_dir: 'Bin_released'
+      #     destination_dir: ${{ github.run_number }}
+          
+      # - name: Upload file list to patch server
+      #   run: |
+      #     python extern/scripts/upload_nomercy.py ${{ github.run_number }}
+
+      # - name: Deploy Client to Sentry
+      #   run: |
+      #     python extern/scripts/deploy_sentry.py --log_level debug --auth_token ${{ secrets.SENTRY_TOKEN }} --organization nomercy-ac --project nomercy-lite-public --environment production --pipeline_version ${{ github.run_number }}
+
+      # - name: Upload files to AV vendors
+      #   run: |
+      #     python extern/scripts/av_upload_whitelist.py
+      # - name: Scan files in VT
+      #   run: |
+      #     python extern/scripts/vt_scan.py
+
