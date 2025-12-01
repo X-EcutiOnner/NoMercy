@@ -1,3 +1,0 @@
-
-#define NM_ICON_IMAGE 9001
-#define NM_BACKGROUND_IMAGE 9002
